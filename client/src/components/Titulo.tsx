@@ -18,7 +18,7 @@ export default function Titulo() {
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4">
                 <Link to="/" className="flex items-center space-x-3">
                     <img src="./rubra-logo.png" className="w-8" alt="Logo Rubra" />
-                    <p className="text-2xl mb-1 font-bold text-[#A80633]">
+                    <p className="text-2xl font-bold text-[#A80633]">
                         RUBRA CARDS
                     </p>
                 </Link>
@@ -34,7 +34,7 @@ export default function Titulo() {
                             {cliente.id ?
                                 <>
                                     <div className="flex items-center">
-                                        <span className="text-gray-600 font-semibold py-2 px-6">
+                                        <span className="text-gray-600 font-semibold px-6">
                                             Bem vindo, {cliente.nome}
                                         </span>&nbsp;&nbsp;
                                         <div className="flex items-center">

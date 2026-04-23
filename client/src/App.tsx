@@ -8,6 +8,7 @@ const apiUrl = import.meta.env.VITE_API_URL
 
 export default function App() {
   const [cartas, setCartas] = useState<CartaType[]>([])
+  const [todasCartas, setTodasCartas] = useState<CartaType[]>([])
 
   useEffect(() => {
     async function buscaDados() {
@@ -30,7 +31,32 @@ export default function App() {
     buscaDados()
   }, [])
 
+  useEffect(() => {
+    async function buscaTodasCartas() {
+      try {
+        const response = await fetch(`${apiUrl}/cartas`)
+        const dados = await response.json()
+        if (Array.isArray(dados)) {
+          setTodasCartas(dados)
+        } else {
+          setTodasCartas([])
+          toast.error("Erro ao carregar todas as cartas.")
+          console.error("Resposta inválida /cartas:", dados)
+        }
+      } catch (error) {
+        setTodasCartas([])
+        toast.error("Erro ao carregar todas as cartas.")
+        console.error(error)
+      }
+    }
+    buscaTodasCartas()
+  }, [])
+
   const listaCartas = cartas.map(carta => (
+    <CardCarta data={carta} key={carta.id} />
+  ))
+
+  const listaTodasCartas = todasCartas.map(carta => (
     <CardCarta data={carta} key={carta.id} />
   ))
 
@@ -43,6 +69,13 @@ export default function App() {
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
           {listaCartas}
+        </div>
+
+        <h1 className="mt-32 mb-6 text-3xl font-extrabold leading-none tracking-tight text-gray-900">
+          Todas as cartas
+        </h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pb-12">
+          {listaTodasCartas}
         </div>
       </div>
     </>
