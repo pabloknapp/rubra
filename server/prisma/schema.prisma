@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Colecao {
+  id             Int         @id @default(autoincrement())
+  nome           String      @db.VarChar(30)
+  cartas         Carta[]
+
+  @@map("colecoes")
+}
+
+model Carta {
+  id             Int          @id @default(autoincrement())
+  imagem         String       
+  pokemon        String       @db.VarChar(30)
+  tipo           Tipo         @default(NORMAL) 
+  graduacao      Graduacao    @default(OUTRO)
+  nota           Int          @db.SmallInt
+  idioma         Idioma       @default(PORTUGUES)
+  ano            Int          @db.SmallInt 
+  raridade       Raridade     @default(COMMON)
+  preco          Decimal      @db.Decimal(10, 2)
+  destaque       Boolean      @default(true)
+  colecao        Colecao      @relation(fields: [colecaoId], references: [id])
+  colecaoId      Int
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt()
+  propostas      Proposta[]
+
+  @@map("cartas")
+}
+
+model Cliente {
+  id            String       @db.VarChar(36) @id @default(uuid())
+  nome          String       @db.VarChar(60)
+  email         String       @db.VarChar(40) @unique
+  senha         String       @db.VarChar(60)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt  
+  propostas     Proposta[]
+
+  @@map("clientes")
+}
+
+model Proposta {
+  id          Int           @id @default(autoincrement())
+  cliente     Cliente       @relation(fields: [clienteId], references: [id])
+  clienteId   String        @db.VarChar(36)
+  carta       Carta         @relation(fields: [cartaId], references: [id])
+  cartaId     Int
+  descricao   String        @db.VarChar(255)
+  resposta    String?       @db.VarChar(255)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt  
+  
+  @@map("propostas")
+}
+
+enum StatusProposta {
+  PENDENTE
+  ACEITA
+  RECUSADA
+}
+
+enum Graduacao {
+  PSA
+  BGS
+  CGC
+  TAG
+  MANAFIX
+  BECKETT
+  OUTRO
+}
+
+enum Idioma {
+  PORTUGUES
+  INGLES
+  JAPONES
+}
+
+enum Raridade {
+  COMMON
+  UNCOMMON
+  RARE
+  HOLO_RARE
+  REVERSE_HOLO
+  ULTRA_RARE
+  FULL_ART
+  SECRET_RARE
+  ILLUSTRATION_RARE
+  SPECIAL_ILLUSTRATION_RARE
+  HYPER_RARE
+  PROMO
+}
+
+enum Tipo {
+  NORMAL
+  FOGO
+  AGUA
+  ELETRICO
+  GRAMA
+  GELO
+  LUTADOR
+  VENENO
+  TERRA
+  VOADOR
+  PSIQUICO
+  INSETO
+  PEDRA
+  FANTASMA
+  DRAGAO
+  SOMBRIO
+  ACO
+  FADA 
+  ESTELAR
+}
