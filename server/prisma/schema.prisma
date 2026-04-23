@@ -49,15 +49,16 @@ model Cliente {
 }
 
 model Proposta {
-  id          Int           @id @default(autoincrement())
-  cliente     Cliente       @relation(fields: [clienteId], references: [id])
-  clienteId   String        @db.VarChar(36)
-  carta       Carta         @relation(fields: [cartaId], references: [id])
+  id          Int             @id @default(autoincrement())
+  cliente     Cliente         @relation(fields: [clienteId], references: [id])
+  clienteId   String          @db.VarChar(36)
+  carta       Carta           @relation(fields: [cartaId], references: [id])
   cartaId     Int
-  descricao   String        @db.VarChar(255)
-  resposta    String?       @db.VarChar(255)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt  
+  descricao   String          @db.VarChar(255)
+  resposta    String?         @db.VarChar(255)
+  status      StatusProposta  @default(PENDENTE)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt  
   
   @@map("propostas")
 }

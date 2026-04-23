@@ -30,8 +30,7 @@ export default function Propostas() {
         <tr key={proposta.id} className="bg-gray-50 border-b border-gray-400">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                 <p><b>{proposta.carta.pokemon} ({proposta.carta.colecao?.nome})</b></p>
-                <p className='mt-3'>Ano: {proposta.carta.ano} -
-                    R$: {Number(proposta.carta.preco).toLocaleString("pt-br", { minimumFractionDigits: 2 })}</p>
+                <p>R$ {Number(proposta.carta.preco).toLocaleString("pt-br", { minimumFractionDigits: 2 })}</p>
             </th>
             <td className="px-6 py-4">
                 <img src={proposta.carta.imagem} className="w-[120px]" alt="Imagem Carta" />

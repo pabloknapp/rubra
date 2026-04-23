@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { useClienteStore } from "./context/ClienteContext"
 import { useForm } from "react-hook-form"
 import { toast } from 'sonner'
+import { Link } from "react-router-dom"
 
 const apiUrl = import.meta.env.VITE_API_URL
 
@@ -53,42 +54,95 @@ export default function Detalhes() {
 
   return (
     <>
-      <section className="flex my-35 mx-auto flex-col items-center bg-gray-50 border border-gray-300 rounded-lg shadow md:flex-row md:max-w-5xl hover:bg-gray-100">
-        <img className="object-cover w-full rounded-t-lg h-96 md:h-2/4 md:w-2/4 md:rounded-none md:rounded-s-lg"
-          src={carta?.imagem} alt="Imagem da Carta" />
-        <div className="flex flex-col justify-between p-4 leading-normal">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-            {carta?.pokemon} <span className="text-gray-400 font-semibold">({carta?.colecao?.nome})</span>
-          </h5>
-          <h5 className="mb-2 text-xl tracking-tight text-gray-900">
-            Ano: {carta?.ano} - Idioma: {carta?.idioma}
-          </h5>
-          <h5 className="mb-2 text-xl tracking-tight text-gray-900">
-            Preço R$: {Number(carta?.preco)
-              .toLocaleString("pt-br", { minimumFractionDigits: 2 })}
-          </h5>
-          <p className="mb-3 font-normal text-gray-700">
-            Tipo: {carta?.tipo} • Raridade: {carta?.raridade} • Nota: {carta?.nota} • Graduação: {carta?.graduacao}
-          </p>
-          {cliente.id ?
-            <>
-              <h3 className="text-xl font-bold tracking-tight pt-12 text-gray-900">
-                Envie sua proposta</h3>
-              <form onSubmit={handleSubmit(enviaProposta)}>
-                <input type="text" className="mb-2 mt-4 bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 cursor-not-allowed" value={`${cliente.nome} (${cliente.email})`} disabled readOnly />
-                <textarea id="message" className="mb-2 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Descreva a sua proposta"
-                  required
-                  {...register("descricao")}>
-                </textarea>
-                <button type="submit" className="text-white bg-[#A80633] hover:bg-[#A80633]/90 focus:ring-4 focus:outline-none focus:ring-[#A80633]/80 font-medium rounded-lg text-sm w-full sm:w-auto my-6 px-5 py-2 text-center">Enviar proposta</button>
-              </form>
-            </>
-            :
-            <h2 className="mb-2 text-xl tracking-tight text-gray-900">
-              Interessado na carta? Faça login e envie sua Proposta!
-            </h2>
-          }
+      <section className="my-8 mx-auto max-w-6xl px-4">
+        <div className="bg-white rounded-2xl outline-2 outline-gray-300 shadow-sm overflow-hidden">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+            {/* Imagem - Esquerda */}
+            <div className="bg-gray-50 flex items-center justify-center p-6 min-h-96">
+              <img 
+                className="object-contain max-w-full max-h-96 hover:scale-105 transition-transform duration-300"
+                src={carta?.imagem} 
+                alt="Imagem da Carta" 
+              />
+            </div>
+
+            {/* Conteúdo - Direita */}
+            <div className="p-6 md:p-8 flex flex-col justify-between">
+              {/* Informações da Carta */}
+              <div>
+                <h2 className="mb-1 text-3xl md:text-4xl font-bold tracking-tight text-gray-900">
+                  {carta?.pokemon}
+                </h2>
+                <p className="mb-6 text-sm md:text-base text-gray-500 font-semibold">
+                  {carta?.colecao?.nome}
+                </p>
+
+                <div className="mb-6 space-y-2">
+                  <div className="flex gap-4 text-sm md:text-base text-gray-700">
+                    <span className="font-semibold">ANO</span>
+                    <span>{carta?.ano}</span>
+                  </div>
+                  <div className="flex gap-4 text-sm md:text-base text-gray-700">
+                    <span className="font-semibold">IDIOMA</span>
+                    <span>{carta?.idioma}</span>
+                  </div>
+                </div>
+
+                <div className="mb-6 p-4 bg-gray-50 rounded-xl outline-1 outline-gray-400">
+                  <p className="text-sm md:text-base text-gray-700 space-y-2">
+                    <span className="block"><strong>Graduação:</strong> {carta?.graduacao}</span>
+                    <span className="block"><strong>Nota:</strong> {carta?.nota}</span>
+                    <span className="block"><strong>Raridade:</strong> {carta?.raridade}</span>
+                    <span className="block"><strong>Tipo:</strong> {carta?.tipo}</span>
+                  </p>
+                </div>
+              </div>
+
+              <p className="mb-6 text-2xl md:text-3xl font-bold text-[#A80633]">
+                R$ {Number(carta?.preco)
+                  .toLocaleString("pt-br", { minimumFractionDigits: 2 })}
+              </p>
+
+              {/* Formulário ou Call-to-Action */}
+              <div>
+                {cliente.id ? (
+                  <>
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-gray-900">
+                      Envie sua proposta
+                    </h3>
+                    <form onSubmit={handleSubmit(enviaProposta)} className="space-y-4">
+                      <input 
+                        type="text" 
+                        className="w-full bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg px-4 py-3 cursor-not-allowed" 
+                        value={`${cliente.nome} (${cliente.email})`} 
+                        disabled 
+                        readOnly 
+                      />
+                      <textarea 
+                        className="w-full p-4 text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#A80633] focus:border-[#A80633] focus:outline-none resize-none"
+                        placeholder="Descreva a sua proposta"
+                        rows={4}
+                        required
+                        {...register("descricao")}
+                      />
+                      <button 
+                        type="submit" 
+                        className="w-full bg-[#A80633] hover:bg-[#A80633] text-white font-semibold rounded-lg py-3 px-4 transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#A80633] focus:ring-offset-2"
+                      >
+                        Enviar proposta
+                      </button>
+                    </form>
+                  </>
+                ) : (
+                  <div className="p-6 bg-[#A80633]/5 rounded-xl border-2 border-[#A80633]/70">
+                    <p className="text-lg text-gray-800 font-semibold">
+                      Interessado na carta? <Link to="/login" className="text-[#A80633] hover:underline">Faça login</Link> e envie sua proposta!
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </>
