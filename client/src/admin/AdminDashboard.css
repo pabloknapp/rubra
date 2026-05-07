@@ -1,0 +1,17 @@
+.div-graficos {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+.div-graficos svg {
+  width: 380px;
+  height: 380px;
+  max-width: 100%;
+}
+

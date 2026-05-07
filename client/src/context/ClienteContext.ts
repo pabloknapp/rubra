@@ -67,6 +67,7 @@ export const useClienteStore = create<ClienteStore>()(
 
                     return true
                 } catch (e) {
+                    void e
                     set({ loading: false, error: 'Erro ao conectar na API' })
                     return false
                 }
@@ -91,6 +92,7 @@ export const useClienteStore = create<ClienteStore>()(
                     set({ loading: false, error: message })
                     return false
                 } catch (e) {
+                    void e
                     set({ loading: false, error: 'Erro ao conectar na API' })
                     return false
                 }

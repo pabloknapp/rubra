@@ -3,6 +3,7 @@ import { Graduacao, Idioma, Raridade, Tipo } from "../../generated/prisma/enums"
 
 import { Router } from 'express'
 import { z } from 'zod'
+import { verificaToken } from "../middlewares/verificaToken"
 
 const router = Router()
 
@@ -165,6 +166,26 @@ router.put("/:id", async (req, res) => {
     res.status(200).json(carta)
   } catch (error) {
     res.status(400).json({ error })
+  }
+})
+
+// Admin: alterna destaque
+router.patch("/destacar/:id", verificaToken, async (req, res) => {
+  const { id } = req.params
+  try {
+    const carta = await prisma.carta.findUnique({ where: { id: Number(id) } })
+    if (!carta) {
+      res.status(404).json({ erro: "Carta não encontrada" })
+      return
+    }
+
+    const atualizada = await prisma.carta.update({
+      where: { id: Number(id) },
+      data: { destaque: !carta.destaque },
+    })
+    res.status(200).json(atualizada)
+  } catch (error) {
+    res.status(400).json({ erro: error })
   }
 })
 

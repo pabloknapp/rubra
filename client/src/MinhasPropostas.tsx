@@ -15,7 +15,7 @@ export default function Propostas() {
             setPropostas(dados)
         }
         buscaDados()
-    }, [])
+    }, [cliente.id])
 
     // para retornar apenas a data do campo no banco de dados
     // 2024-10-10T22:46:27.227Z => 10/10/2024

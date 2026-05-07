@@ -48,6 +48,18 @@ model Cliente {
   @@map("clientes")
 }
 
+model Admin {
+  id        String   @db.VarChar(36) @id @default(uuid())
+  nome      String   @db.VarChar(60)
+  email     String   @db.VarChar(40) @unique
+  senha     String   @db.VarChar(60)
+  nivel     Int      @db.SmallInt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
+}
+
 model Proposta {
   id          Int             @id @default(autoincrement())
   cliente     Cliente         @relation(fields: [clienteId], references: [id])

@@ -6,6 +6,9 @@ import routesCartas from './routes/cartas'
 import routesClientes from './routes/clientes'
 import routesLogin from './routes/login'
 import routesPropostas from './routes/propostas'
+import routesAdminLogin from './routes/adminLogin'
+import routesAdmins from './routes/admins'
+import routesDashboard from './routes/dashboard'
 
 const app = express()
 const port = 3000
@@ -18,6 +21,9 @@ app.use("/cartas", routesCartas)
 app.use("/clientes", routesClientes)
 app.use("/clientes/login", routesLogin)
 app.use("/propostas", routesPropostas)
+app.use("/admins/login", routesAdminLogin)
+app.use("/admins", routesAdmins)
+app.use("/dashboard", routesDashboard)
 
 app.get('/', (req, res) => {
   res.send('API: Cartas Pokémon')

@@ -28,7 +28,7 @@ export default function Detalhes() {
       setCarta(dados)
     }
     buscaDados()
-  }, [])
+  }, [params.cartaId])
 
   async function enviaProposta(data: Inputs) {
 
