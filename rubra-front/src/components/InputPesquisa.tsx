@@ -10,9 +10,10 @@ type Inputs = {
 
 type InputPesquisaProps = {
     setCartas: React.Dispatch<React.SetStateAction<CartaType[]>>
+    setIsPesquisa: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function InputPesquisa({ setCartas }: InputPesquisaProps) {
+export function InputPesquisa({ setCartas, setIsPesquisa }: InputPesquisaProps) {
     const { register, handleSubmit, reset } = useForm<Inputs>()
 
     async function enviaPesquisa(data: Inputs) {
@@ -27,6 +28,7 @@ export function InputPesquisa({ setCartas }: InputPesquisaProps) {
             const dados = await response.json()
             if (Array.isArray(dados)) {
                 setCartas(dados)
+                setIsPesquisa(true)
             } else {
                 setCartas([])
                 toast.error("Erro ao pesquisar (resposta inválida da API).")
@@ -46,6 +48,7 @@ export function InputPesquisa({ setCartas }: InputPesquisaProps) {
             reset({ termo: "" })
             if (Array.isArray(dados)) {
                 setCartas(dados)
+                setIsPesquisa(false)
             } else {
                 setCartas([])
                 toast.error("Erro ao carregar destaques (resposta inválida da API).")

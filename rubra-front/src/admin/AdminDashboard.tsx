@@ -77,13 +77,13 @@ export default function AdminDashboard() {
       <div className="flex items-center mb-8">
         <div className="h-10 w-2 bg-slate-900 rounded-full mr-4"></div>
         <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
-          Visão Geral do Sistema
+          Visão Geral
         </h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-slate-900/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#A80633]/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
           <div className="relative z-10 flex flex-col items-center">
             <p className="font-bold text-slate-500 uppercase tracking-widest text-xs mb-4">Clientes</p>
             <span className="text-5xl font-black text-slate-800 tracking-tighter mb-2">
@@ -93,7 +93,7 @@ export default function AdminDashboard() {
         </div>
 
         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-slate-900/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#A80633]/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
           <div className="relative z-10 flex flex-col items-center">
             <p className="font-bold text-slate-500 uppercase tracking-widest text-xs mb-4">Cartas</p>
             <span className="text-5xl font-black text-slate-800 tracking-tighter mb-2">
@@ -106,7 +106,7 @@ export default function AdminDashboard() {
           <div className="absolute top-0 right-0 w-32 h-32 bg-[#A80633]/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
           <div className="relative z-10 flex flex-col items-center">
             <p className="font-bold text-slate-500 uppercase tracking-widest text-xs mb-4">Propostas</p>
-            <span className="text-5xl font-black text-[#A80633] tracking-tighter mb-2">
+            <span className="text-5xl font-black text-slate-800 tracking-tighter mb-2">
               {dados.propostas}
             </span>
           </div>

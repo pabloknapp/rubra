@@ -102,7 +102,7 @@ export default function Detalhes() {
 
                 <div className="flex items-end mb-8 mt-6">
                   <span className="text-xl font-bold text-slate-400 mr-2 mb-1">R$</span>
-                  <p className="text-5xl font-black text-slate-900 tracking-tighter">
+                  <p className="text-4xl font-black text-slate-900 tracking-tighter">
                     {Number(carta?.preco).toLocaleString("pt-br", { minimumFractionDigits: 2 })}
                   </p>
                 </div>
@@ -181,13 +181,13 @@ export default function Detalhes() {
                   <div className="p-8 bg-gradient-to-br from-[#A80633] to-[#8a0529] rounded-2xl shadow-lg text-center relative overflow-hidden group">
                     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                     <div className="relative z-10 flex flex-col items-center">
-                      <div className="bg-white/20 p-3 rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <div className="bg-white/20 p-3 rounded-full mb-4 transition-transform duration-300">
                         <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                       </div>
                       <h3 className="text-2xl font-bold text-white mb-2">Interessado nesta carta?</h3>
-                      <p className="text-white/80 mb-6 font-medium">Faça login para enviar sua proposta diretamente ao vendedor.</p>
+                      <p className="text-white/80 mb-6 font-medium">Faça login para enviar sua proposta.</p>
                       <Link to="/login" className="inline-block bg-white text-[#A80633] font-bold rounded-xl px-8 py-3 hover:bg-slate-50 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5">
                         Fazer Login
                       </Link>

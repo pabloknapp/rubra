@@ -20,6 +20,10 @@ type Inputs = {
   colecaoId: number
 }
 
+type ColecaoInputs = {
+  nome: string
+}
+
 export default function AdminNovaCarta() {
   const [colecoes, setColecoes] = useState<ColecaoType[]>([])
 
@@ -33,14 +37,20 @@ export default function AdminNovaCarta() {
     },
   })
 
+  const {
+    register: registerColecao,
+    handleSubmit: handleSubmitColecao,
+    reset: resetColecao,
+  } = useForm<ColecaoInputs>()
+
+  async function carregarColecoes() {
+    const response = await fetchWithToken(`${apiUrl}/colecoes`)
+    const dados = await response.json()
+    setColecoes(Array.isArray(dados) ? dados : [])
+  }
+
   useEffect(() => {
-    async function carregar() {
-      const response = await fetchWithToken(`${apiUrl}/colecoes`)
-      const dados = await response.json()
-      setColecoes(Array.isArray(dados) ? dados : [])
-      setFocus("pokemon")
-    }
-    carregar()
+    carregarColecoes().then(() => setFocus("pokemon"))
   }, [setFocus])
 
   const optionsColecao = useMemo(
@@ -73,13 +83,58 @@ export default function AdminNovaCarta() {
     }
   }
 
+  async function incluirColecao(data: ColecaoInputs) {
+    const response = await fetchWithToken(`${apiUrl}/colecoes`, {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(data),
+    })
+
+    if (response.status === 201) {
+      toast.success("Ok! Coleção cadastrada com sucesso")
+      resetColecao()
+      carregarColecoes()
+    } else {
+      const erro = await response.json().catch(() => null)
+      toast.error(erro?.erro?.message ?? "Erro no cadastro da Coleção...")
+    }
+  }
+
   return (
-    <div className="pt-20 px-4 sm:px-6 max-w-4xl mx-auto pb-20">
-      <div className="flex items-center mb-8">
-        <div className="h-10 w-2 bg-[#A80633] rounded-full mr-4"></div>
-        <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
+    <div className="pt-40 px-4 sm:px-6 max-w-4xl mx-auto pb-20">
+      <div className="mb-6 flex items-center">
+        <div className="h-8 w-1.5 bg-[#A80633] rounded-full mr-3"></div>
+        <h2 className="text-2xl font-bold text-slate-900">
+          Adicionar nova Coleção
+        </h2>
+      </div>
+
+      <div className="mb-12 bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-8 sm:p-10">
+        <form onSubmit={handleSubmitColecao(incluirColecao)} className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-grow">
+            <input
+              type="text"
+              id="nomeColecao"
+              className="bg-slate-50 border border-slate-200 text-slate-900 text-base rounded-xl focus:ring-4 focus:ring-[#A80633]/20 focus:border-[#A80633] block w-full p-3.5 transition-all outline-none shadow-sm"
+              placeholder="Insira o nome da coleção"
+              required
+              {...registerColecao("nome")}
+            />
+          </div>
+          <button
+            type="submit"
+            className="text-white bg-[#A80633] hover:bg-[#8a0529] cursor-pointer focus:ring-4 focus:outline-none focus:ring-[#A80633]/50 font-bold rounded-xl text-base px-8 py-3.5 text-center transition-all duration-300 transform active:scale-[0.98]"
+          >
+            Adicionar Coleção
+          </button>
+        </form>
+      </div>
+
+      <div className="mb-6 flex items-center">
+        <div className="h-8 w-1.5 bg-[#A80633] rounded-full mr-3"></div>
+        <h2 className="text-2xl font-bold text-slate-900">
           Inclusão de Carta
-        </h1>
+        </h2>
       </div>
 
       <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 p-8 sm:p-10">
@@ -248,11 +303,11 @@ export default function AdminNovaCarta() {
           </div>
 
           <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-xl border border-slate-200 w-max">
-            <input 
-              type="checkbox" 
-              id="destaque" 
-              className="w-5 h-5 text-[#A80633] bg-white border-slate-300 rounded focus:ring-[#A80633] focus:ring-2" 
-              {...register("destaque")} 
+            <input
+              type="checkbox"
+              id="destaque"
+              className="w-5 h-5 text-[#A80633] bg-white border-slate-300 rounded focus:ring-[#A80633] focus:ring-2"
+              {...register("destaque")}
             />
             <label htmlFor="destaque" className="font-bold text-slate-800 cursor-pointer">
               Destacar carta na página inicial
@@ -262,9 +317,9 @@ export default function AdminNovaCarta() {
           <div className="pt-4 border-t border-slate-100 flex justify-end">
             <button
               type="submit"
-              className="w-full sm:w-auto text-white bg-[#A80633] hover:bg-[#8a0529] hover:shadow-lg hover:shadow-[#A80633]/30 cursor-pointer focus:ring-4 focus:outline-none focus:ring-[#A80633]/50 font-bold rounded-xl text-base px-8 py-4 text-center transition-all duration-300 transform active:scale-[0.98]"
+              className="w-full sm:w-auto text-white bg-[#A80633] hover:bg-[#8a0529] cursor-pointer focus:ring-4 focus:outline-none focus:ring-[#A80633]/50 font-bold rounded-xl text-base px-8 py-4 text-center transition-all duration-300 transform active:scale-[0.98]"
             >
-              Cadastrar Nova Carta
+              Adicionar Carta
             </button>
           </div>
         </form>
