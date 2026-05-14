@@ -61,23 +61,50 @@ export default function App() {
   ))
 
   return (
-    <>
-      <InputPesquisa setCartas={setCartas} />
-      <div className="max-w-7xl mx-auto">
-        <h1 className="mt-12 mb-6 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-5xl">
-          Cartas <span className="underline underline-offset-3 decoration-8 decoration-[#A80633]">em destaque</span>
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          {listaCartas}
-        </div>
-
-        <h1 className="mt-32 mb-6 text-3xl font-extrabold leading-none tracking-tight text-gray-900">
-          Todas as cartas
-        </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pb-12">
-          {listaTodasCartas}
+    <div className="min-h-screen bg-slate-50/50">
+      <div className="bg-white border-b border-slate-200 shadow-sm relative overflow-hidden">
+        <div className="relative z-10">
+          <InputPesquisa setCartas={setCartas} />
         </div>
       </div>
-    </>
+
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex items-center mb-8">
+          <div className="h-10 w-2 bg-[#A80633] rounded-full mr-4"></div>
+          <h2 className="text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+            Cartas em <span className="text-[#A80633]">destaque</span>
+          </h2>
+        </div>
+
+        {cartas.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm">
+            <svg className="w-16 h-16 text-slate-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+            <p className="text-slate-500 font-medium">Nenhuma carta encontrada.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {listaCartas}
+          </div>
+        )}
+
+        <div className="mt-24 mb-8 flex items-center justify-between">
+          <div className="flex items-center">
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900">
+              Todas as cartas
+            </h2>
+            <span className="ml-3 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-slate-100 text-slate-800">
+              {todasCartas.length}
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-20">
+          {listaTodasCartas}
+        </div>
+      </main>
+    </div>
   );
 }
+

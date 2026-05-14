@@ -73,74 +73,100 @@ export default function AdminDashboard() {
   }, [cartas])
 
   return (
-    <div className="container mt-24">
-      <h2 className="text-3xl mb-4 font-bold">Visão Geral do Sistema</h2>
+    <div className="pt-20 px-4 sm:px-6 max-w-7xl mx-auto">
+      <div className="flex items-center mb-8">
+        <div className="h-10 w-2 bg-slate-900 rounded-full mr-4"></div>
+        <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
+          Visão Geral do Sistema
+        </h2>
+      </div>
 
-      <div className="w-2/3 flex justify-between mx-auto mb-5">
-        <div className="border-[#A80633] border rounded p-6 w-1/3 me-3">
-          <span className="bg-[#A80633]/10 text-[#A80633] text-xl text-center font-bold mx-auto block px-2.5 py-5 rounded">
-            {dados.clientes}
-          </span>
-          <p className="font-bold mt-2 text-center">Nº Clientes</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-slate-900/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+          <div className="relative z-10 flex flex-col items-center">
+            <p className="font-bold text-slate-500 uppercase tracking-widest text-xs mb-4">Clientes</p>
+            <span className="text-5xl font-black text-slate-800 tracking-tighter mb-2">
+              {dados.clientes}
+            </span>
+          </div>
         </div>
-        <div className="border-gray-700 border rounded p-6 w-1/3 me-3">
-          <span className="bg-gray-100 text-gray-800 text-xl text-center font-bold mx-auto block px-2.5 py-5 rounded">
-            {dados.cartas}
-          </span>
-          <p className="font-bold mt-2 text-center">Nº Cartas</p>
+
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-slate-900/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+          <div className="relative z-10 flex flex-col items-center">
+            <p className="font-bold text-slate-500 uppercase tracking-widest text-xs mb-4">Cartas</p>
+            <span className="text-5xl font-black text-slate-800 tracking-tighter mb-2">
+              {dados.cartas}
+            </span>
+          </div>
         </div>
-        <div className="border-green-600 border rounded p-6 w-1/3">
-          <span className="bg-green-100 text-green-800 text-xl text-center font-bold mx-auto block px-2.5 py-5 rounded">
-            {dados.propostas}
-          </span>
-          <p className="font-bold mt-2 text-center">Nº Propostas</p>
+
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#A80633]/5 rounded-bl-full -mr-10 -mt-10 transition-transform group-hover:scale-110"></div>
+          <div className="relative z-10 flex flex-col items-center">
+            <p className="font-bold text-slate-500 uppercase tracking-widest text-xs mb-4">Propostas</p>
+            <span className="text-5xl font-black text-[#A80633] tracking-tighter mb-2">
+              {dados.propostas}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div className="div-graficos">
-        <svg viewBox="0 0 500 500">
-          <VictoryPie
-            standalone={false}
-            width={500}
-            height={500}
-            data={cartasPorTipo}
-            innerRadius={60}
-            labelRadius={120}
-            theme={VictoryTheme.clean}
-            style={{
-              labels: { fontSize: 12, fill: "#333", fontFamily: "Arial", fontWeight: "bold" },
-            }}
-          />
-          <VictoryLabel
-            textAnchor="middle"
-            style={{ fontSize: 16, fill: "#111", fontFamily: "Arial", fontWeight: "bold" }}
-            x={250}
-            y={250}
-            text={["Cartas", "por Tipo"]}
-          />
-        </svg>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 flex flex-col items-center justify-center">
+          <h3 className="text-lg font-bold text-slate-800 mb-4 uppercase tracking-wide">Distribuição por Tipo</h3>
+          <div className="w-full max-w-[400px]">
+            <svg viewBox="0 0 500 500">
+              <VictoryPie
+                standalone={false}
+                width={500}
+                height={500}
+                data={cartasPorTipo}
+                innerRadius={70}
+                labelRadius={130}
+                theme={VictoryTheme.clean}
+                style={{
+                  labels: { fontSize: 14, fill: "#334155", fontFamily: "Inter", fontWeight: "bold" },
+                }}
+              />
+              <VictoryLabel
+                textAnchor="middle"
+                style={{ fontSize: 18, fill: "#0f172a", fontFamily: "Inter", fontWeight: "900" }}
+                x={250}
+                y={250}
+                text={["Por", "Tipo"]}
+              />
+            </svg>
+          </div>
+        </div>
 
-        <svg viewBox="0 0 500 500">
-          <VictoryPie
-            standalone={false}
-            width={500}
-            height={500}
-            data={cartasPorColecao}
-            innerRadius={60}
-            labelRadius={120}
-            theme={VictoryTheme.clean}
-            style={{
-              labels: { fontSize: 12, fill: "#333", fontFamily: "Arial", fontWeight: "bold" },
-            }}
-          />
-          <VictoryLabel
-            textAnchor="middle"
-            style={{ fontSize: 16, fill: "#111", fontFamily: "Arial", fontWeight: "bold" }}
-            x={250}
-            y={250}
-            text={["Cartas", "por Coleção"]}
-          />
-        </svg>
+        <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 flex flex-col items-center justify-center">
+          <h3 className="text-lg font-bold text-slate-800 mb-4 uppercase tracking-wide">Distribuição por Coleção</h3>
+          <div className="w-full max-w-[400px]">
+            <svg viewBox="0 0 500 500">
+              <VictoryPie
+                standalone={false}
+                width={500}
+                height={500}
+                data={cartasPorColecao}
+                innerRadius={70}
+                labelRadius={130}
+                theme={VictoryTheme.clean}
+                style={{
+                  labels: { fontSize: 14, fill: "#334155", fontFamily: "Inter", fontWeight: "bold" },
+                }}
+              />
+              <VictoryLabel
+                textAnchor="middle"
+                style={{ fontSize: 18, fill: "#0f172a", fontFamily: "Inter", fontWeight: "900" }}
+                x={250}
+                y={250}
+                text={["Por", "Coleção"]}
+              />
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased font-sans selection:bg-[#A80633]/20 selection:text-[#A80633];
+  }
+}
+
 * {
   font-family: 'Inter', sans-serif;
-}
+}

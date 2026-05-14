@@ -62,49 +62,73 @@ export default function CadCliente() {
     }
 
     return (
-        <section className="">
-            <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-32 lg:py-0">
-                <div className="w-full bg-white rounded-lg outline-1 outline-gray-300 shadow md:mt-0 sm:max-w-md xl:p-0">
-                    <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                        <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                            Crie sua conta
-                        </h1>
-                        <form className="space-y-4 md:space-y-6"
-                            onSubmit={handleSubmit(cadastraCliente)}>
+        <section className="min-h-[90vh] flex flex-col justify-center bg-slate-50/50 py-12 px-4 sm:px-6">
+            <div className="flex flex-col items-center justify-center mx-auto w-full max-w-md">
+                <div className="w-full bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200 overflow-hidden relative">
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#A80633] to-red-500"></div>
+                    <div className="p-8 sm:p-10 space-y-6">
+                        <div className="text-center mb-6">
+                            <h1 className="text-2xl font-black tracking-tight text-slate-900 md:text-3xl">
+                                Crie sua conta
+                            </h1>
+                            <p className="text-sm text-slate-500 mt-2 font-medium">Junte-se a nós para encontrar as melhores cartas.</p>
+                        </div>
+                        <form className="space-y-5" onSubmit={handleSubmit(cadastraCliente)}>
                             {error ? (
-                                <p className="text-sm font-semibold text-red-600">
-                                    {error}
-                                </p>
+                                <div className="p-4 rounded-xl bg-red-50 border border-red-100 flex items-center">
+                                    <svg className="w-5 h-5 text-red-500 mr-3 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                                    </svg>
+                                    <p className="text-sm font-semibold text-red-700">{error}</p>
+                                </div>
                             ) : null}
+                            
                             <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 ">Nome:</label>
-                                <input type="text" id="nome" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" placeholder="Seu nome completo" required
-                                    {...register("nome")} />
-                                {errors.nome && <p role="alert" className="error">{errors.nome.message}</p>}
+                                <label htmlFor="nome" className="block mb-2 text-sm font-bold text-slate-700">Nome Completo</label>
+                                <input type="text" id="nome" 
+                                       className="bg-slate-50 border border-slate-200 text-slate-900 text-base rounded-xl focus:ring-4 focus:ring-[#A80633]/20 focus:border-[#A80633] block w-full p-3.5 transition-all outline-none shadow-sm" 
+                                       placeholder="Seu nome e sobrenome" 
+                                       required
+                                       {...register("nome")} />
+                                {errors.nome && <p role="alert" className="mt-2 text-xs font-semibold text-red-500">{errors.nome.message}</p>}
                             </div>
+                            
                             <div>
-                                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">E-mail:</label>
-                                <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" placeholder="nome@gmail.com" required
-                                    {...register("email")} />
-                                {errors.email && <p role="alert" className="error">{errors.email.message}</p>}
+                                <label htmlFor="email" className="block mb-2 text-sm font-bold text-slate-700">E-mail</label>
+                                <input type="email" id="email" 
+                                       className="bg-slate-50 border border-slate-200 text-slate-900 text-base rounded-xl focus:ring-4 focus:ring-[#A80633]/20 focus:border-[#A80633] block w-full p-3.5 transition-all outline-none shadow-sm" 
+                                       placeholder="exemplo@email.com" 
+                                       required
+                                       {...register("email")} />
+                                {errors.email && <p role="alert" className="mt-2 text-xs font-semibold text-red-500">{errors.email.message}</p>}
                             </div>
+                            
                             <div>
-                                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">Senha:</label>
-                                <input type="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" required
-                                    {...register("senha")} />
-                                {errors.senha && <p role="alert" className="error">{errors.senha.message}</p>}
+                                <label htmlFor="password" className="block mb-2 text-sm font-bold text-slate-700">Senha</label>
+                                <input type="password" id="password" 
+                                       placeholder="••••••••" 
+                                       className="bg-slate-50 border border-slate-200 text-slate-900 text-base rounded-xl focus:ring-4 focus:ring-[#A80633]/20 focus:border-[#A80633] block w-full p-3.5 transition-all outline-none shadow-sm" 
+                                       required
+                                       {...register("senha")} />
+                                {errors.senha && <p role="alert" className="mt-2 text-xs font-semibold text-red-500">{errors.senha.message}</p>}
                             </div>
+                            
                             <div>
-                                <label htmlFor="confirm-password" className="block mb-2 text-sm font-medium text-gray-900">Confirme sua Senha:</label>
-                                <input type="password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2" required
-                                    {...register("senha2")} />
-                                {errors.senha2 && <p role="alert" className="error">{errors.senha2.message}</p>}
+                                <label htmlFor="confirm-password" className="block mb-2 text-sm font-bold text-slate-700">Confirme sua Senha</label>
+                                <input type="password" id="confirm-password" 
+                                       placeholder="••••••••" 
+                                       className="bg-slate-50 border border-slate-200 text-slate-900 text-base rounded-xl focus:ring-4 focus:ring-[#A80633]/20 focus:border-[#A80633] block w-full p-3.5 transition-all outline-none shadow-sm" 
+                                       required
+                                       {...register("senha2")} />
+                                {errors.senha2 && <p role="alert" className="mt-2 text-xs font-semibold text-red-500">{errors.senha2.message}</p>}
                             </div>
-                            <button disabled={loading} type="submit" className="w-full text-white bg-[#A80633] hover:bg-[#A80633]/90 focus:ring-4 cursor-pointer font-medium rounded-lg text-sm px-5 py-2 text-center disabled:opacity-60">
+                            
+                            <button disabled={loading} type="submit" className="w-full text-white bg-[#A80633] hover:bg-[#8a0529] hover:shadow-lg hover:shadow-[#A80633]/30 cursor-pointer focus:ring-4 focus:outline-none focus:ring-[#A80633]/50 font-bold rounded-xl text-base px-5 py-4 text-center disabled:opacity-60 transition-all duration-300 transform active:scale-[0.98] mt-6">
                                 {loading ? "Cadastrando..." : "Criar sua Conta"}
                             </button>
-                            <p className="text-sm font-light text-gray-500">
-                                Já possui uma conta? <Link to="/login" className="font-medium text-primary-600 hover:underline">Faça Login</Link>
+                            
+                            <p className="text-sm font-medium text-slate-500 text-center mt-6">
+                                Já possui uma conta? <Link to="/login" className="font-bold text-[#A80633] hover:text-[#8a0529] hover:underline transition-colors">Faça Login</Link>
                             </p>
                         </form>
                     </div>

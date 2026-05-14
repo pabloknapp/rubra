@@ -22,7 +22,7 @@ export default function AdminLayout() {
     <>
       <Titulo />
       <MenuLateral />
-      <div className="p-4 sm:ml-64">
+      <div className="p-4 sm:ml-64 bg-slate-50/50 min-h-screen">
         <Outlet />
       </div>
       <Toaster richColors position="top-right" />

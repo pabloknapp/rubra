@@ -19,49 +19,45 @@ export default function AdminCartas() {
   }, [])
 
   return (
-    <div className="m-4 mt-24">
-      <div className="flex justify-between">
-        <h1 className="mb-4 text-2xl font-bold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl">
-          Cadastro de Cartas
-        </h1>
+    <div className="pt-20 px-4 sm:px-6 max-w-7xl mx-auto">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+        <div className="flex items-center">
+          <div className="h-10 w-2 bg-slate-900 rounded-full mr-4"></div>
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900">
+            Cadastro de Cartas
+          </h1>
+        </div>
         <Link
           to="/admin/cartas/nova"
-          className="text-white bg-[#A80633] hover:bg-[#A80633]/90 focus:ring-4 focus:ring-[#A80633]/30 font-bold rounded-lg text-md px-5 py-2.5 me-2 mb-2 focus:outline-none"
+          className="inline-flex items-center text-white bg-[#A80633] hover:bg-[#8a0529] hover:shadow-lg hover:shadow-[#A80633]/30 transition-all duration-300 transform active:scale-[0.98] focus:ring-4 focus:ring-[#A80633]/50 font-bold rounded-xl text-base px-6 py-3"
         >
+          <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          </svg>
           Nova Carta
         </Link>
       </div>
 
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-700">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Imagem
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Pokémon
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Coleção
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Ano
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Preço R$
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Ações
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {cartas.map((c) => (
-              <ItemCarta key={c.id} carta={c} cartas={cartas} setCartas={setCartas} />
-            ))}
-          </tbody>
-        </table>
+      <div className="bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-left text-slate-600">
+            <thead className="text-xs text-slate-500 uppercase bg-slate-50 border-b border-slate-200">
+              <tr>
+                <th scope="col" className="px-6 py-5 font-bold tracking-wider">Imagem</th>
+                <th scope="col" className="px-6 py-5 font-bold tracking-wider">Pokémon</th>
+                <th scope="col" className="px-6 py-5 font-bold tracking-wider">Coleção</th>
+                <th scope="col" className="px-6 py-5 font-bold tracking-wider">Ano</th>
+                <th scope="col" className="px-6 py-5 font-bold tracking-wider">Preço R$</th>
+                <th scope="col" className="px-6 py-5 font-bold tracking-wider">Ações</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {cartas.map((c) => (
+                <ItemCarta key={c.id} carta={c} cartas={cartas} setCartas={setCartas} />
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )
