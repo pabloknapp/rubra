@@ -26,6 +26,32 @@ export default function Propostas() {
         return dia + "/" + mes + "/" + ano
     }
 
+    function getStatusColor(status: string) {
+        switch (status) {
+            case "ACEITA":
+                return "bg-green-100 text-green-800"
+            case "RECUSADA":
+                return "bg-red-100 text-red-800"
+            case "PENDENTE":
+                return "bg-yellow-100 text-yellow-800"
+            default:
+                return "bg-gray-100 text-gray-800"
+        }
+    }
+
+    function getStatusText(status: string) {
+        switch (status) {
+            case "ACEITA":
+                return "✓ Aceita"
+            case "RECUSADA":
+                return "✗ Recusada"
+            case "PENDENTE":
+                return "⏳ Pendente"
+            default:
+                return status
+        }
+    }
+
     const propostasTable = propostas.map(proposta => (
         <tr key={proposta.id} className="bg-gray-50 border-b border-gray-400">
             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
@@ -40,13 +66,18 @@ export default function Propostas() {
                 <p><i>Enviado em: {dataDMA(proposta.createdAt)}</i></p>
             </td>
             <td className="px-6 py-4">
+                <span className={`px-3 py-1 rounded-full text-sm font-medium inline-block ${getStatusColor(proposta.status)}`}>
+                    {getStatusText(proposta.status)}
+                </span>
+            </td>
+            <td className="px-6 py-4">
                 {proposta.resposta ?
                     <>
                         <p><b>{proposta.resposta}</b></p>
                         <p><i>Respondido em: {dataDMA(proposta.updatedAt as string)}</i></p>
                     </>
                     :
-                    <i>Aguardando...</i>}
+                    <i className="text-gray-500">Aguardando resposta...</i>}
             </td>
         </tr>
     ))
@@ -72,6 +103,9 @@ export default function Propostas() {
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Proposta
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Status
                             </th>
                             <th scope="col" className="px-6 py-3">
                                 Resposta

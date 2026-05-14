@@ -169,12 +169,32 @@ export default function AdminNovaCarta() {
             <label htmlFor="tipo" className="block mb-2 text-sm font-medium text-gray-900">
               Tipo
             </label>
-            <input
-              type="text"
+            <select
               id="tipo"
+              required
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#A80633] focus:border-[#A80633] block w-full p-2.5"
               {...register("tipo")}
-            />
+            >
+              <option value="NORMAL">Normal</option>
+              <option value="FOGO">Fogo</option>
+              <option value="AGUA">Água</option>
+              <option value="ELETRICO">Elétrico</option>
+              <option value="GRAMA">Grama</option>
+              <option value="GELO">Gelo</option>
+              <option value="LUTADOR">Lutador</option>
+              <option value="VENENO">Veneno</option>
+              <option value="TERRA">Terra</option>
+              <option value="VOADOR">Voador</option>
+              <option value="PSIQUICO">Psíquico</option>
+              <option value="INSETO">Inseto</option>
+              <option value="PEDRA">Pedra</option>
+              <option value="FANTASMA">Fantasma</option>
+              <option value="DRAGAO">Dragão</option>
+              <option value="SOMBRIO">Sombrio</option>
+              <option value="ACO">Aço</option>
+              <option value="FADA">Fada</option>
+              <option value="ESTELAR">Estelar</option>
+            </select>
           </div>
           <div className="mb-3">
             <label htmlFor="raridade" className="block mb-2 text-sm font-medium text-gray-900">

@@ -9,6 +9,7 @@ export type PropostaType = {
   cliente?: ClienteType
   descricao: string
   resposta: string | null
+  status: "PENDENTE" | "ACEITA" | "RECUSADA"
   createdAt: string
   updatedAt: string | null
 }

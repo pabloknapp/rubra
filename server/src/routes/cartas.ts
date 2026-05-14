@@ -1,23 +1,23 @@
 import { prisma } from "../../lib/prisma"
-import { Graduacao, Idioma, Raridade, Tipo } from "../../generated/prisma/enums"
-
 import { Router } from 'express'
 import { z } from 'zod'
 import { verificaToken } from "../middlewares/verificaToken"
 
 const router = Router()
 
+const tiposValidos = ["NORMAL", "FOGO", "AGUA", "ELETRICO", "GRAMA", "GELO", "LUTADOR", "VENENO", "TERRA", "VOADOR", "PSIQUICO", "INSETO", "PEDRA", "FANTASMA", "DRAGAO", "SOMBRIO", "ACO", "FADA", "ESTELAR"] as const
+
 const cartaSchema = z.object({
   imagem: z.string().min(3, { message: "Informe a URL/arquivo da imagem" }),
   pokemon: z.string().min(2, { message: "Nome do Pokémon deve ter, no mínimo, 2 caracteres" }),
-  tipo: z.nativeEnum(Tipo).optional(),
-  graduacao: z.nativeEnum(Graduacao).optional(),
+  tipo: z.enum(tiposValidos).default("NORMAL"),
+  graduacao: z.string().default("OUTRO"),
   nota: z.number().int().min(0).max(10),
-  idioma: z.nativeEnum(Idioma).optional(),
+  idioma: z.string().default("PORTUGUES"),
   ano: z.number().int(),
-  raridade: z.nativeEnum(Raridade).optional(),
+  raridade: z.string().default("COMMON"),
   preco: z.number(),
-  destaque: z.boolean().optional(),
+  destaque: z.boolean().default(true),
   colecaoId: z.number(),
 })
 
@@ -77,14 +77,14 @@ router.post("/", async (req, res) => {
   const {
     imagem,
     pokemon,
-    tipo = 'NORMAL',
-    graduacao = 'OUTRO',
+    tipo,
+    graduacao,
     nota,
-    idioma = 'PORTUGUES',
+    idioma,
     ano,
-    raridade = 'COMMON',
+    raridade,
     preco,
-    destaque = true,
+    destaque,
     colecaoId,
   } = valida.data
 
